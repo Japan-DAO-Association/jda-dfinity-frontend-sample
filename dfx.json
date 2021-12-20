@@ -1,0 +1,35 @@
+{
+  "canisters": {
+    "plug_front": {
+      "main": "src/plug_front/main.mo",
+      "type": "motoko"
+    },
+    "plug_front_assets": {
+      "dependencies": [
+        "plug_front"
+      ],
+      "frontend": {
+        "entrypoint": "src/plug_front_assets/src/index.html"
+      },
+      "source": [
+        "src/plug_front_assets/assets",
+        "dist/plug_front_assets/"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "dfx": "0.8.4",
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    }
+  },
+  "version": 1
+}
