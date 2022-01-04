@@ -1,3 +1,14 @@
-service : {
-  greet: (text) -> (text);
-}
+type TokenMetadata = record {attributes: opt vec Attribute;};
+type TokenID = nat;
+type Small_NFT = 
+ service {
+   mint: (principal, opt TokenMetadata) -> (TokenID);
+   ownerOf: (TokenID) -> (text);
+   transfer: (principal, TokenID) -> (TokenID);
+ };
+type Attribute = 
+ record {
+   key: text;
+   value: text;
+ };
+service : () -> Small_NFT
