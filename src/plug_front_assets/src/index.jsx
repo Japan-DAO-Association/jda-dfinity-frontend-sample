@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
 import PlugConnect from '@psychedelic/plug-connect';
 import { plug_front } from "../../declarations/plug_front";
+import { HttpAgent } from '@dfinity/agent';
 import { Principal } from '@dfinity/principal';
+import { getAllUserNFTs } from '@psychedelic/dab-js'
 import axios from "axios";
 
 const App = () => {
@@ -44,9 +46,17 @@ const App = () => {
     console.log(`onBtnRequestTransfer() call response ${JSON.stringify(response)}`);
   };
 
-  const fetchData = async () => {
-    const response = await axios.get("https://api.github.com/users/pontagon333");
-    console.log(response.data);
+  const mint = async () => {
+    const principal = await window.ic.plug.getPrincipal();
+    console.log(principal);
+
+    const mintId = await plug_front.mint(principal, []);
+    console.log(mintId);
+  };
+
+  const ownerOf = async () => {
+    const ownerId = await plug_front.ownerOf(12n);
+    console.log(ownerId);
   };
 
   const verifyConnectionAndAgent = async () => {
@@ -133,7 +143,7 @@ const App = () => {
             </div>
 
             <div>
-              <p className="text-base font-bold mb-4">Github API TEST</p>
+              <p className="text-base font-bold mb-4">small nft</p>
               <div className="flex flex-col space-y-5">
                 <div>
                   <button
@@ -147,9 +157,26 @@ const App = () => {
                       hover:bg-gray-100
                       py-3
                       px-6"
-                    onClick={fetchData}
+                    onClick={mint}
                   >
-                    user api
+                    mint
+                  </button>
+                </div>
+                <div>
+                  <button
+                    id="dabnft"
+                    className="
+                      btn
+                      w-full
+                      transition
+                      duration-300
+                      bg-gray-300
+                      hover:bg-gray-100
+                      py-3
+                      px-6"
+                    onClick={ownerOf}
+                  >
+                    owner id
                   </button>
                 </div>
               </div>
